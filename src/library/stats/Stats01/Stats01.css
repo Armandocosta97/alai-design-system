@@ -1,0 +1,194 @@
+.stats01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.stats01__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: 0 1.25rem;
+}
+
+.stats01__header {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stats01__eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats01__title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.stats01__subtitle {
+  max-width: 30rem;
+  margin: var(--space-sm) auto 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.05rem;
+}
+
+.stats01__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stats01__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.stats01__value {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.stats01__label {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.stats01__description {
+  margin: 0.2rem 0 0;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Alignment — applies to Four Column and Two-by-Two Grid. Featured already
+   establishes its own emphasis-driven layout, so alignment is a documented
+   no-op there. */
+.stats01--align-left .stats01__header {
+  margin: 0;
+  text-align: left;
+}
+
+.stats01--align-left .stats01__subtitle {
+  margin-inline: 0;
+}
+
+.stats01--align-left .stats01__item {
+  text-align: left;
+}
+
+/* Divider — hairline rule between statistics. */
+.stats01--divider.stats01--four-column .stats01__item:not(:first-child) {
+  border-left: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-left: var(--space-lg);
+}
+
+.stats01--divider.stats01--two-by-two .stats01__item:nth-child(2n) {
+  border-left: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-left: var(--space-lg);
+}
+
+.stats01--divider.stats01--two-by-two .stats01__item:nth-child(n + 3) {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+/* Two-by-Two Grid */
+.stats01--two-by-two .stats01__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+/* Featured — first statistic large, the other three smaller in a row below. */
+.stats01--featured .stats01__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+
+.stats01--featured .stats01__item:first-child {
+  flex: 1 1 100%;
+}
+
+.stats01--featured .stats01__item:first-child .stats01__value {
+  font-size: clamp(3rem, 7vw, 4.5rem);
+}
+
+.stats01--featured .stats01__item:first-child .stats01__label {
+  font-size: 1.15rem;
+}
+
+.stats01--featured .stats01__item:nth-child(n + 2) {
+  flex: 1 1 200px;
+}
+
+.stats01--divider.stats01--featured .stats01__item:nth-child(n + 2) {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+@media (max-width: 960px) {
+  .stats01--four-column .stats01__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats01--divider.stats01--four-column .stats01__item {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .stats01--divider.stats01--four-column .stats01__item:nth-child(2n) {
+    border-left: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-left: var(--space-lg);
+  }
+
+  .stats01--divider.stats01--four-column .stats01__item:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-top: var(--space-lg);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats01__inner {
+    padding: 0 1rem;
+  }
+
+  .stats01--four-column .stats01__grid,
+  .stats01--two-by-two .stats01__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats01--divider.stats01--four-column .stats01__item,
+  .stats01--divider.stats01--two-by-two .stats01__item {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .stats01--divider.stats01--four-column .stats01__item:not(:first-child),
+  .stats01--divider.stats01--two-by-two .stats01__item:not(:first-child) {
+    border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-top: var(--space-lg);
+  }
+
+  .stats01--featured .stats01__item:nth-child(n + 2) {
+    flex: 1 1 100%;
+  }
+}

@@ -1,0 +1,168 @@
+import type { ComponentManifest } from '../../../config/componentManifest'
+import Stats01 from './Stats01'
+import { stats01DefaultProps, stats01DefaultStyle } from './Stats01'
+
+const Stats01Manifest: ComponentManifest = {
+  id: 'Stats01',
+  name: 'Stats 01',
+  category: 'stats',
+  sourceFolder: 'src/library/stats/Stats01',
+  description: 'Restrained editorial statistics section with four value/label/description metrics.',
+  status: 'ready',
+  version: '1.0.0',
+  tags: ['editorial', 'metrics', 'premium'],
+  industries: [
+    'agency',
+    'freelancer',
+    'restaurant',
+    'hotel',
+    'healthcare',
+    'consultant',
+    'artisan',
+    'photographer',
+    'local business',
+    'saas',
+  ],
+  author: 'ALai Design System',
+  createdAt: '2026-07-07',
+  updatedAt: '2026-07-07',
+  previewImage: '',
+  component: Stats01,
+  props: [
+    {
+      key: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow',
+      defaultValue: stats01DefaultProps.eyebrow,
+    },
+    {
+      key: 'title',
+      type: 'text',
+      label: 'Title',
+      defaultValue: stats01DefaultProps.title,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      defaultValue: stats01DefaultProps.subtitle,
+    },
+    {
+      key: 'stat1Value',
+      type: 'text',
+      label: 'Stat 1 Value',
+      defaultValue: stats01DefaultProps.stat1Value,
+      description: 'Plain text — never parsed or formatted. Examples: "12+", "98%", "< 24h", "250+", "24/7", "#1".',
+    },
+    {
+      key: 'stat1Label',
+      type: 'text',
+      label: 'Stat 1 Label',
+      defaultValue: stats01DefaultProps.stat1Label,
+    },
+    {
+      key: 'stat1Description',
+      type: 'textarea',
+      label: 'Stat 1 Description',
+      defaultValue: stats01DefaultProps.stat1Description,
+    },
+    {
+      key: 'stat2Value',
+      type: 'text',
+      label: 'Stat 2 Value',
+      defaultValue: stats01DefaultProps.stat2Value,
+      description: 'Plain text — never parsed or formatted. Examples: "12+", "98%", "< 24h", "250+", "24/7", "#1".',
+    },
+    {
+      key: 'stat2Label',
+      type: 'text',
+      label: 'Stat 2 Label',
+      defaultValue: stats01DefaultProps.stat2Label,
+    },
+    {
+      key: 'stat2Description',
+      type: 'textarea',
+      label: 'Stat 2 Description',
+      defaultValue: stats01DefaultProps.stat2Description,
+    },
+    {
+      key: 'stat3Value',
+      type: 'text',
+      label: 'Stat 3 Value',
+      defaultValue: stats01DefaultProps.stat3Value,
+      description: 'Plain text — never parsed or formatted. Examples: "12+", "98%", "< 24h", "250+", "24/7", "#1".',
+    },
+    {
+      key: 'stat3Label',
+      type: 'text',
+      label: 'Stat 3 Label',
+      defaultValue: stats01DefaultProps.stat3Label,
+    },
+    {
+      key: 'stat3Description',
+      type: 'textarea',
+      label: 'Stat 3 Description',
+      defaultValue: stats01DefaultProps.stat3Description,
+    },
+    {
+      key: 'stat4Value',
+      type: 'text',
+      label: 'Stat 4 Value',
+      defaultValue: stats01DefaultProps.stat4Value,
+      description: 'Plain text — never parsed or formatted. Examples: "12+", "98%", "< 24h", "250+", "24/7", "#1".',
+    },
+    {
+      key: 'stat4Label',
+      type: 'text',
+      label: 'Stat 4 Label',
+      defaultValue: stats01DefaultProps.stat4Label,
+    },
+    {
+      key: 'stat4Description',
+      type: 'textarea',
+      label: 'Stat 4 Description',
+      defaultValue: stats01DefaultProps.stat4Description,
+    },
+  ],
+  exportFiles: ['Stats01.tsx', 'Stats01.css', 'index.ts'],
+  variants: [
+    { id: 'four-column', name: 'Four Column', description: 'All four statistics in a single row.' },
+    { id: 'two-by-two', name: 'Two-by-Two Grid', description: 'Four statistics in a 2×2 grid.' },
+    { id: 'featured', name: 'Featured', description: 'First statistic large, the other three smaller below.' },
+  ],
+  styleControls: [
+    {
+      key: 'containerWidth',
+      type: 'number',
+      label: 'Container Width',
+      defaultValue: stats01DefaultStyle.containerWidth,
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: stats01DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: stats01DefaultStyle.paddingBottom,
+    },
+    {
+      key: 'alignment',
+      type: 'select',
+      label: 'Alignment',
+      defaultValue: stats01DefaultStyle.alignment,
+      options: ['center', 'left'],
+    },
+    {
+      key: 'showDivider',
+      type: 'boolean',
+      label: 'Show Divider',
+      defaultValue: stats01DefaultStyle.showDivider,
+    },
+  ],
+}
+
+export default Stats01Manifest

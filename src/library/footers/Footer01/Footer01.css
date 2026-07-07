@@ -1,13 +1,14 @@
 .footer01 {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--space-xl);
   padding: clamp(1.75rem, 4vw, 3rem);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 1.75rem;
-  background: var(--footer01-background, #ffffff);
-  color: #111111;
-  box-shadow: 0 24px 60px rgba(17, 17, 17, 0.06);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius);
+  background: var(--footer01-background, var(--color-surface));
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  font-family: var(--font-family);
 }
 
 .footer01__top,
@@ -20,7 +21,7 @@
 
 .footer01__brand {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-md);
   max-width: 34rem;
 }
 
@@ -29,9 +30,9 @@
   width: 2.75rem;
   height: 2.75rem;
   place-items: center;
-  border-radius: 1rem;
-  background: #111111;
-  color: #ffffff;
+  border-radius: var(--radius-md);
+  background: var(--color-secondary);
+  color: var(--color-surface);
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.05em;
@@ -47,36 +48,55 @@
 .footer01__description {
   max-width: 28rem;
   margin: 0.6rem 0 0;
-  color: rgba(17, 17, 17, 0.62);
+  color: var(--color-muted);
 }
 
 .footer01__nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: var(--space-sm) var(--space-md);
 }
 
 .footer01__link,
 .footer01__contact-link {
-  color: rgba(17, 17, 17, 0.68);
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
   text-decoration: none;
 }
 
 .footer01__link:hover,
 .footer01__contact-link:hover {
-  color: #ff6a1a;
+  color: var(--color-primary);
 }
 
 .footer01__contact {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: var(--space-sm) var(--space-md);
 }
 
 .footer01__copyright {
   margin: 0;
-  color: rgba(17, 17, 17, 0.5);
+  color: var(--color-muted);
   text-align: right;
+}
+
+.footer01--minimal .footer01__description,
+.footer01--minimal .footer01__nav,
+.footer01--minimal .footer01__contact {
+  display: none;
+}
+
+.footer01--minimal .footer01__top,
+.footer01--minimal .footer01__bottom {
+  justify-content: center;
+}
+
+.footer01--minimal .footer01__brand {
+  justify-content: center;
+}
+
+.footer01--minimal .footer01__copyright {
+  text-align: center;
 }
 
 @media (max-width: 760px) {

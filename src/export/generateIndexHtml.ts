@@ -1,0 +1,8 @@
+import type { Project } from '../config/project'
+import type { VirtualProjectFile } from './types'
+
+export function generateIndexHtml(project: Project): VirtualProjectFile {
+  const content = `<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>${project.name}</title>\n  </head>\n  <body>\n    <div id="root"></div>\n    <script type="module" src="/src/main.tsx"></script>\n  </body>\n</html>\n`
+
+  return { path: 'index.html', content }
+}

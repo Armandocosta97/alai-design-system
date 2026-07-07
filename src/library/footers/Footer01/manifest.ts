@@ -1,11 +1,12 @@
 import type { ComponentManifest } from '../../../config/componentManifest'
 import Footer01 from './Footer01'
-import { footer01DefaultProps } from './Footer01'
+import { footer01DefaultProps, footer01DefaultStyle } from './Footer01'
 
 const Footer01Manifest: ComponentManifest = {
   id: 'Footer01',
   name: 'Footer 01',
   category: 'footers',
+  sourceFolder: 'src/library/footers/Footer01',
   description: 'Premium minimal footer with contact details, static navigation, and brand summary.',
   status: 'ready',
   version: '1.0.0',
@@ -52,6 +53,25 @@ const Footer01Manifest: ComponentManifest = {
       type: 'color',
       label: 'Background Color',
       defaultValue: footer01DefaultProps.backgroundColor,
+    },
+  ],
+  exportFiles: ['Footer01.tsx', 'Footer01.css', 'index.ts'],
+  variants: [
+    { id: 'classic', name: 'Classic', description: 'Brand and nav row, contact and copyright row.' },
+    { id: 'minimal', name: 'Minimal', description: 'Centered brand and copyright only.' },
+  ],
+  styleControls: [
+    {
+      key: 'padding',
+      type: 'number',
+      label: 'Padding',
+      defaultValue: footer01DefaultStyle.padding,
+    },
+    {
+      key: 'borderTop',
+      type: 'boolean',
+      label: 'Border Top',
+      defaultValue: footer01DefaultStyle.borderTop,
     },
   ],
 }

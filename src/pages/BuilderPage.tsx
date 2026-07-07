@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useProject } from '../app/ProjectContext'
 import BuilderCanvas from '../components/BuilderCanvas'
 import BuilderInspector from '../components/BuilderInspector'
 import BuilderSidebar from '../components/BuilderSidebar'
@@ -6,38 +7,11 @@ import {
   componentRegistry,
   type DesignSystemComponent,
 } from '../config/componentRegistry'
-import { defaultProjectTheme, type ProjectTheme } from '../config/theme'
-
-type BuilderSection = {
-  id: string
-  componentId: string | null
-  props: Record<string, unknown>
-}
-
-type ProjectPage = {
-  id: string
-  name: string
-  sections: BuilderSection[]
-}
-
-type Project = {
-  id: string
-  name: string
-  theme: ProjectTheme
-  pages: ProjectPage[]
-}
-
-function createSection(): BuilderSection {
-  return {
-    id: `section-${crypto.randomUUID()}`,
-    componentId: null,
-    props: {},
-  }
-}
-
-function createInitialSections() {
-  return [createSection(), createSection(), createSection()]
-}
+import { createInitialSections, createSection, type BuilderSection, type ProjectPage } from '../config/project'
+import { BREAKPOINTS, BREAKPOINT_LABELS, DEFAULT_BREAKPOINT, type Breakpoint } from '../config/responsive'
+import type { ProjectTheme } from '../config/theme'
+import { resolveSectionProps, setResponsiveValue } from '../utils/responsiveProps'
+import { toggleVisibility } from '../utils/responsiveVisibility'
 
 function cloneSections(sections: BuilderSection[]) {
   return sections.map((section) => ({
@@ -56,19 +30,10 @@ function cloneSection(section: BuilderSection): BuilderSection {
 }
 
 function BuilderPage() {
-  const [project, setProject] = useState<Project>({
-    id: 'project-alai',
-    name: 'ALai Website',
-    theme: defaultProjectTheme,
-    pages: [
-      { id: 'page-home', name: 'Home', sections: createInitialSections() },
-      { id: 'page-about', name: 'About', sections: createInitialSections() },
-      { id: 'page-services', name: 'Services', sections: createInitialSections() },
-      { id: 'page-contact', name: 'Contact', sections: createInitialSections() },
-    ],
-  })
+  const { project, setProject, undo, redo, canUndo, canRedo } = useProject()
   const [selectedPageId, setSelectedPageId] = useState<string>('page-home')
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null)
+  const [activeBreakpoint, setActiveBreakpoint] = useState<Breakpoint>(DEFAULT_BREAKPOINT)
 
   const componentsByCategory = componentRegistry.reduce<
     Record<string, DesignSystemComponent[]>
@@ -103,6 +68,20 @@ function BuilderPage() {
     }, {})
   }
 
+  function getDefaultVariantId(componentItem: DesignSystemComponent) {
+    return componentItem.variants?.[0]?.id
+  }
+
+  function getDefaultStyle(componentItem: DesignSystemComponent) {
+    return (componentItem.styleControls ?? []).reduce<Record<string, unknown>>(
+      (defaults, control) => {
+        defaults[control.key] = control.defaultValue
+        return defaults
+      },
+      {},
+    )
+  }
+
   function updateSelectedPageSections(
     updater: (sections: BuilderSection[]) => BuilderSection[],
   ) {
@@ -122,6 +101,8 @@ function BuilderPage() {
       id: `section-${crypto.randomUUID()}`,
       componentId,
       props: componentItem ? getDefaultProps(componentItem) : {},
+      variantId: componentItem ? getDefaultVariantId(componentItem) : undefined,
+      style: componentItem ? getDefaultStyle(componentItem) : {},
     }
 
     updateSelectedPageSections((currentSections) => {
@@ -133,92 +114,80 @@ function BuilderPage() {
   }
 
   function removeSection(sectionId: string) {
-    updateSelectedPageSections((currentSections) => {
-      const nextSections = currentSections.filter((section) => section.id !== sectionId)
+    const nextSections = sections.filter((section) => section.id !== sectionId)
 
-      if (nextSections.length === 0) {
-        const fallbackSection = createSection()
-        setSelectedSectionId(fallbackSection.id)
-        return [fallbackSection]
-      }
+    if (nextSections.length === 0) {
+      const fallbackSection = createSection()
+      updateSelectedPageSections(() => [fallbackSection])
+      setSelectedSectionId(fallbackSection.id)
+      return
+    }
 
-      if (selectedSectionId === sectionId) {
-        setSelectedSectionId(nextSections[0].id)
-      }
+    updateSelectedPageSections(() => nextSections)
 
-      return nextSections
-    })
+    if (selectedSectionId === sectionId) {
+      setSelectedSectionId(nextSections[0].id)
+    }
   }
 
-  function moveSection(sectionId: string, direction: -1 | 1) {
+  function reorderSections(orderedSectionIds: string[]) {
     updateSelectedPageSections((currentSections) => {
-      const currentIndex = currentSections.findIndex((section) => section.id === sectionId)
-
-      if (currentIndex === -1) {
-        return currentSections
-      }
-
-      const nextIndex = currentIndex + direction
-      if (nextIndex < 0 || nextIndex >= currentSections.length) {
-        return currentSections
-      }
-
-      const nextSections = [...currentSections]
-      const [movedSection] = nextSections.splice(currentIndex, 1)
-      nextSections.splice(nextIndex, 0, movedSection)
-      return nextSections
+      const sectionsById = new Map(
+        currentSections.map((section) => [section.id, section] as const),
+      )
+      return orderedSectionIds.map((sectionId) => sectionsById.get(sectionId)!)
     })
   }
 
   function duplicateSection(sectionId: string) {
+    const currentIndex = sections.findIndex((section) => section.id === sectionId)
+
+    if (currentIndex === -1) {
+      return
+    }
+
+    const duplicatedSection = cloneSection(sections[currentIndex])
+
     updateSelectedPageSections((currentSections) => {
-      const currentIndex = currentSections.findIndex((section) => section.id === sectionId)
-
-      if (currentIndex === -1) {
-        return currentSections
-      }
-
-      const duplicatedSection = cloneSection(currentSections[currentIndex])
       const nextSections = [...currentSections]
       nextSections.splice(currentIndex + 1, 0, duplicatedSection)
-      setSelectedSectionId(duplicatedSection.id)
       return nextSections
     })
+    setSelectedSectionId(duplicatedSection.id)
   }
 
   function handleSelectComponent(componentItem: DesignSystemComponent) {
-    updateSelectedPageSections((currentSections) => {
-      let targetSectionId = selectedSectionId
+    const targetSectionId =
+      selectedSectionId ?? sections.find((section) => section.componentId === null)?.id ?? null
 
-      if (!targetSectionId) {
-        targetSectionId = currentSections.find((section) => section.componentId === null)?.id ?? null
+    if (!targetSectionId) {
+      const nextSection: BuilderSection = {
+        ...createSection(),
+        componentId: componentItem.id,
+        props: getDefaultProps(componentItem),
+        variantId: getDefaultVariantId(componentItem),
+        style: getDefaultStyle(componentItem),
       }
 
-      if (!targetSectionId) {
-        const nextSection = createSection()
-        setSelectedSectionId(nextSection.id)
-        return [
-          ...currentSections,
-          {
-            ...nextSection,
-            componentId: componentItem.id,
-            props: getDefaultProps(componentItem),
-          },
-        ]
-      }
+      updateSelectedPageSections((currentSections) => [...currentSections, nextSection])
+      setSelectedSectionId(nextSection.id)
+      return
+    }
 
-      setSelectedSectionId(targetSectionId)
-
-      return currentSections.map((section) =>
+    updateSelectedPageSections((currentSections) =>
+      currentSections.map((section) =>
         section.id === targetSectionId
           ? {
               ...section,
               componentId: componentItem.id,
               props: getDefaultProps(componentItem),
+              variantId: getDefaultVariantId(componentItem),
+              style: getDefaultStyle(componentItem),
             }
           : section,
-      )
-    })
+      ),
+    )
+    setSelectedSectionId(targetSectionId)
   }
 
   function updateSelectedSectionProp(propKey: string, value: unknown) {
@@ -229,14 +198,46 @@ function BuilderPage() {
     updateSelectedPageSections((currentSections) =>
       currentSections.map((section) =>
         section.id === selectedSectionId
-          ? {
-              ...section,
-              props: {
-                ...section.props,
-                [propKey]: value,
-              },
-            }
+          ? setResponsiveValue(section, propKey, activeBreakpoint, value)
           : section,
+      ),
+    )
+  }
+
+  function updateSelectedSectionVariant(variantId: string) {
+    if (!selectedSectionId) {
+      return
+    }
+
+    updateSelectedPageSections((currentSections) =>
+      currentSections.map((section) =>
+        section.id === selectedSectionId ? { ...section, variantId } : section,
+      ),
+    )
+  }
+
+  function updateSelectedSectionStyle(styleKey: string, value: unknown) {
+    if (!selectedSectionId) {
+      return
+    }
+
+    updateSelectedPageSections((currentSections) =>
+      currentSections.map((section) =>
+        section.id === selectedSectionId
+          ? { ...section, style: { ...section.style, [styleKey]: value } }
+          : section,
+      ),
+    )
+  }
+
+  function toggleSelectedSectionVisibility(breakpoint: Breakpoint) {
+    if (!selectedSectionId) {
+      return
+    }
+
+    updateSelectedPageSections((currentSections) =>
+      currentSections.map((section) =>
+        section.id === selectedSectionId ? toggleVisibility(section, breakpoint) : section,
       ),
     )
   }
@@ -286,27 +287,26 @@ function BuilderPage() {
   }
 
   function handleDeletePage(pageId: string) {
-    setProject((currentProject) => {
-      const nextPages = currentProject.pages.filter((page) => page.id !== pageId)
+    const nextPages = project.pages.filter((page) => page.id !== pageId)
 
-      if (nextPages.length === 0) {
-        const fallbackPage: ProjectPage = {
-          id: `page-${crypto.randomUUID()}`,
-          name: 'Home',
-          sections: createInitialSections(),
-        }
-        setSelectedPageId(fallbackPage.id)
-        setSelectedSectionId(null)
-        return { ...currentProject, pages: [fallbackPage] }
+    if (nextPages.length === 0) {
+      const fallbackPage: ProjectPage = {
+        id: `page-${crypto.randomUUID()}`,
+        name: 'Home',
+        sections: createInitialSections(),
       }
+      setProject((currentProject) => ({ ...currentProject, pages: [fallbackPage] }))
+      setSelectedPageId(fallbackPage.id)
+      setSelectedSectionId(null)
+      return
+    }
 
-      if (selectedPageId === pageId) {
-        setSelectedPageId(nextPages[0].id)
-        setSelectedSectionId(null)
-      }
+    setProject((currentProject) => ({ ...currentProject, pages: nextPages }))
 
-      return { ...currentProject, pages: nextPages }
-    })
+    if (selectedPageId === pageId) {
+      setSelectedPageId(nextPages[0].id)
+      setSelectedSectionId(null)
+    }
   }
 
   function handleDuplicatePage(pageId: string) {
@@ -367,12 +367,55 @@ function BuilderPage() {
   return (
     <section className="builder-page">
       <div className="builder-page__intro">
-        <p className="builder-page__eyebrow">Internal Composer</p>
-        <h2 className="builder-page__title">Build a website visually.</h2>
-        <p className="builder-page__description">
-          Compose multiple pages inside one project. Select a page from the project
-          explorer, build its sections on canvas, and inspect each component on the right.
-        </p>
+        <div>
+          <p className="builder-page__eyebrow">Internal Composer</p>
+          <h2 className="builder-page__title">Build a website visually.</h2>
+          <p className="builder-page__description">
+            Compose multiple pages inside one project. Select a page from the project
+            explorer, build its sections on canvas, and inspect each component on the right.
+          </p>
+        </div>
+
+        <div className="builder-toolbar">
+          <div className="builder-toolbar__group" role="group" aria-label="Responsive breakpoint">
+            {BREAKPOINTS.map((breakpoint) => (
+              <button
+                key={breakpoint}
+                className={`builder-toolbar__button${
+                  activeBreakpoint === breakpoint ? ' builder-toolbar__button--active' : ''
+                }`}
+                type="button"
+                onClick={() => setActiveBreakpoint(breakpoint)}
+                aria-pressed={activeBreakpoint === breakpoint}
+              >
+                {BREAKPOINT_LABELS[breakpoint]}
+              </button>
+            ))}
+          </div>
+
+          <div className="builder-toolbar__group">
+            <button
+              className="builder-toolbar__button"
+              type="button"
+              onClick={undo}
+              disabled={!canUndo}
+              aria-label="Undo"
+              title="Undo (⌘Z / Ctrl+Z)"
+            >
+              Undo
+            </button>
+            <button
+              className="builder-toolbar__button"
+              type="button"
+              onClick={redo}
+              disabled={!canRedo}
+              aria-label="Redo"
+              title="Redo (⇧⌘Z / Ctrl+Shift+Z)"
+            >
+              Redo
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="builder-layout">
@@ -394,22 +437,31 @@ function BuilderPage() {
           sections={sections}
           componentsById={componentsById}
           componentsByCategory={componentsByCategory}
+          assets={project.assets}
           theme={project.theme}
+          activeBreakpoint={activeBreakpoint}
           selectedSectionId={selectedSectionId}
           onSelectSection={setSelectedSectionId}
-          onMoveSectionUp={(sectionId) => moveSection(sectionId, -1)}
-          onMoveSectionDown={(sectionId) => moveSection(sectionId, 1)}
+          onReorderSections={reorderSections}
           onDuplicateSection={duplicateSection}
           onRemoveSection={removeSection}
           onInsertComponent={insertSectionAt}
         />
         <BuilderInspector
           componentItem={selectedComponent}
-          sectionProps={selectedSection?.props ?? {}}
+          sectionProps={selectedSection ? resolveSectionProps(selectedSection, activeBreakpoint) : {}}
           onPropChange={updateSelectedSectionProp}
           theme={project.theme}
+          assets={project.assets}
           onThemeChange={updateProjectTheme}
           project={project}
+          activeBreakpoint={activeBreakpoint}
+          sectionVisibility={selectedSection?.visibility}
+          onToggleVisibility={toggleSelectedSectionVisibility}
+          sectionVariantId={selectedSection?.variantId}
+          onVariantChange={updateSelectedSectionVariant}
+          sectionStyle={selectedSection?.style}
+          onStyleChange={updateSelectedSectionStyle}
         />
       </div>
     </section>

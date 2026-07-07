@@ -1,0 +1,179 @@
+.cta01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.cta01__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: 0 1.25rem;
+}
+
+.cta01__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cta01__eyebrow {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cta01__title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.cta01__subtitle {
+  max-width: 34rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.05rem;
+}
+
+.cta01__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.cta01__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.85rem 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.cta01__button--primary {
+  background: var(--color-primary);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.cta01__button--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.cta01__button--secondary {
+  border: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.cta01__button--secondary:hover {
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+}
+
+/* Alignment — applies to Centered and Boxed. Split fixes its own reading
+   direction (content left, actions right), so alignment is a documented
+   no-op there. */
+.cta01--align-center .cta01__content {
+  align-items: center;
+  text-align: center;
+}
+
+.cta01--align-center .cta01__subtitle {
+  margin-inline: auto;
+}
+
+.cta01--align-center .cta01__actions {
+  justify-content: center;
+}
+
+.cta01--align-left .cta01__content {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.cta01--align-left .cta01__actions {
+  justify-content: flex-start;
+}
+
+/* Boxed — content inset into a bordered/surfaced card. */
+.cta01--boxed .cta01__inner {
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+/* Optional background surface — independent of variant. */
+.cta01--surface .cta01__inner {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+/* Split — content and actions share a row, content left, actions right. */
+.cta01--split .cta01__inner {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.cta01--split .cta01__content {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.cta01--split .cta01__subtitle {
+  margin-inline: 0;
+}
+
+.cta01--split .cta01__actions {
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+@media (max-width: 720px) {
+  .cta01--split .cta01__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cta01--split .cta01__actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta01__inner {
+    padding: 0 1rem;
+  }
+
+  .cta01--boxed .cta01__inner,
+  .cta01--surface .cta01__inner {
+    padding: var(--space-lg);
+  }
+
+  .cta01__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .cta01__button {
+    width: 100%;
+  }
+}

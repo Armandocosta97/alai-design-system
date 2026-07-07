@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { ComponentManifest } from '../config/componentManifest'
+import { libraries } from '../config/libraries'
+import ComponentThumbnail from './ComponentThumbnail'
 
 type ProjectPage = {
   id: string
@@ -41,17 +43,22 @@ function BuilderSidebar({
   const [isProjectOpen, setIsProjectOpen] = useState(true)
   const [isLibraryOpen, setIsLibraryOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedLibraryId, setSelectedLibraryId] = useState('all')
 
   const filteredComponents = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase()
 
-    if (!normalizedQuery) {
-      return componentsByCategory
-    }
-
     return Object.entries(componentsByCategory).reduce<Record<string, ComponentManifest[]>>(
       (groups, [category, items]) => {
         const matchingItems = items.filter((item) => {
+          if (selectedLibraryId !== 'all' && item.libraryId !== selectedLibraryId) {
+            return false
+          }
+
+          if (!normalizedQuery) {
+            return true
+          }
+
           const haystack = [
             item.id,
             item.name,
@@ -73,7 +80,7 @@ function BuilderSidebar({
       },
       {},
     )
-  }, [componentsByCategory, searchQuery])
+  }, [componentsByCategory, searchQuery, selectedLibraryId])
 
   const categories = Object.entries(filteredComponents)
 
@@ -155,6 +162,19 @@ function BuilderSidebar({
           {isLibraryOpen ? (
             <>
               <div className="builder-sidebar__search-wrap">
+                <select
+                  className="builder-sidebar__library-select"
+                  value={selectedLibraryId}
+                  onChange={(event) => setSelectedLibraryId(event.target.value)}
+                  aria-label="Filter by library"
+                >
+                  <option value="all">All Libraries</option>
+                  {libraries.map((library) => (
+                    <option key={library.id} value={library.id}>
+                      {library.name}
+                    </option>
+                  ))}
+                </select>
                 <input
                   className="builder-sidebar__search"
                   type="search"
@@ -171,15 +191,24 @@ function BuilderSidebar({
                     </h3>
                     <div className="builder-sidebar__list">
                       {items.map((item) => (
-                        <button
+                        <div
                           key={item.id}
                           className="builder-sidebar__item"
-                          type="button"
+                          role="button"
+                          tabIndex={0}
                           onClick={() => onSelectComponent(item)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              event.preventDefault()
+                              onSelectComponent(item)
+                            }
+                          }}
                         >
+                          <ComponentThumbnail manifest={item} />
                           <span className="builder-sidebar__item-name">{item.id}</span>
+                          <span className="builder-sidebar__item-label">{item.name}</span>
                           <span className="builder-sidebar__item-meta">{item.status}</span>
-                        </button>
+                        </div>
                       ))}
                     </div>
                   </div>

@@ -1,0 +1,230 @@
+.hero02 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.hero02__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-xl) 1.25rem;
+}
+
+.hero02__content {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.hero02--align-center .hero02__content {
+  align-items: center;
+  text-align: center;
+}
+
+.hero02__eyebrow {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero02__title {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.hero02__subtitle {
+  max-width: 32rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.hero02__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.hero02__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.85rem 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.hero02__cta--primary {
+  background: var(--color-primary);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero02__cta--secondary {
+  border: 1px solid color-mix(in srgb, var(--color-text) 18%, transparent);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.hero02__cta--secondary:hover {
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+}
+
+/* Optional surface behind the text content block. */
+.hero02--surface .hero02__content {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero02__visual {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+
+.hero02__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid transparent;
+}
+
+.hero02--surface.hero02--split-image .hero02__image,
+.hero02--surface.hero02--image-first .hero02__image {
+  box-shadow: var(--shadow);
+}
+
+.hero02__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+  color: color-mix(in srgb, var(--color-text) 30%, transparent);
+}
+
+.hero02__placeholder-glyph {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Image First — image beside a compact text column, image gets more room. */
+.hero02--image-first .hero02__content {
+  flex: 1 1 30%;
+  max-width: 22rem;
+}
+
+.hero02--image-first .hero02__visual {
+  flex: 1 1 70%;
+}
+
+/* Editorial Overlay — text sits over a full-bleed image behind a scrim
+   that exists purely to guarantee contrast. Text color is forced to white
+   here regardless of the project's theme text color, since the scrim's
+   entire job is guaranteeing legibility against an arbitrary, unpredictable
+   photograph — deferring to an arbitrary theme color would defeat that
+   guarantee. Readability always takes priority over matching the theme. */
+.hero02--editorial-overlay .hero02__inner {
+  position: relative;
+  min-height: 32rem;
+  align-items: flex-end;
+}
+
+.hero02--editorial-overlay .hero02__visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero02--editorial-overlay .hero02__image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.hero02--editorial-overlay .hero02__content {
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  color: #fff;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.hero02--editorial-overlay .hero02__eyebrow {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.hero02--editorial-overlay .hero02__subtitle {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.hero02--editorial-overlay .hero02__cta--primary {
+  color: #fff;
+}
+
+.hero02--editorial-overlay .hero02__cta--secondary {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.hero02--editorial-overlay .hero02__cta--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 860px) {
+  .hero02__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero02--image-first .hero02__content {
+    max-width: none;
+  }
+
+  .hero02--editorial-overlay .hero02__inner {
+    min-height: 26rem;
+  }
+
+  .hero02--editorial-overlay .hero02__content {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero02__inner {
+    padding: var(--space-lg) 1rem;
+  }
+
+  .hero02__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .hero02__cta {
+    width: 100%;
+  }
+}

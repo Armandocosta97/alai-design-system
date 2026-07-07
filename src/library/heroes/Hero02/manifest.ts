@@ -1,0 +1,150 @@
+import type { ComponentManifest } from '../../../config/componentManifest'
+import Hero02 from './Hero02'
+import { hero02DefaultProps, hero02DefaultStyle } from './Hero02'
+
+const Hero02Manifest: ComponentManifest = {
+  id: 'Hero02',
+  name: 'Hero 02',
+  category: 'heroes',
+  sourceFolder: 'src/library/heroes/Hero02',
+  description: 'Photographic, image-first hero — the visual alternative to Hero01.',
+  status: 'ready',
+  version: '1.0.0',
+  tags: ['photographic', 'editorial', 'premium'],
+  industries: [
+    'hotel',
+    'restaurant',
+    'photographer',
+    'architect',
+    'interior designer',
+    'artisan',
+    'studio',
+    'agency',
+    'real estate',
+    'local business',
+  ],
+  author: 'ALai Design System',
+  createdAt: '2026-07-07',
+  updatedAt: '2026-07-07',
+  previewImage: '',
+  component: Hero02,
+  props: [
+    {
+      key: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow',
+      defaultValue: hero02DefaultProps.eyebrow,
+    },
+    {
+      key: 'title',
+      type: 'text',
+      label: 'Title',
+      defaultValue: hero02DefaultProps.title,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      defaultValue: hero02DefaultProps.subtitle,
+    },
+    {
+      key: 'primaryCtaText',
+      type: 'text',
+      label: 'Primary CTA Text',
+      defaultValue: hero02DefaultProps.primaryCtaText,
+    },
+    {
+      key: 'primaryCtaHref',
+      type: 'text',
+      label: 'Primary CTA Link',
+      defaultValue: hero02DefaultProps.primaryCtaHref,
+    },
+    {
+      key: 'secondaryCtaText',
+      type: 'text',
+      label: 'Secondary CTA Text',
+      defaultValue: hero02DefaultProps.secondaryCtaText,
+      description: 'Optional. Leave empty to remove the secondary CTA entirely.',
+    },
+    {
+      key: 'secondaryCtaHref',
+      type: 'text',
+      label: 'Secondary CTA Link',
+      defaultValue: hero02DefaultProps.secondaryCtaHref,
+    },
+    {
+      key: 'heroImageAssetId',
+      type: 'image',
+      label: 'Hero Image',
+      defaultValue: hero02DefaultProps.heroImageAssetId,
+    },
+    {
+      key: 'heroImageAlt',
+      type: 'text',
+      label: 'Hero Image Alt Text',
+      defaultValue: hero02DefaultProps.heroImageAlt,
+      description: 'Optional. Leave empty for a decorative image with no announced description.',
+    },
+  ],
+  exportFiles: ['Hero02.tsx', 'Hero02.css', 'index.ts'],
+  variants: [
+    { id: 'split-image', name: 'Split Image', description: 'Text on one side, the photograph filling the other.' },
+    { id: 'image-first', name: 'Image First', description: 'Large image beside a compact text column.' },
+    { id: 'editorial-overlay', name: 'Editorial Overlay', description: 'Text sits over a full-bleed photograph behind a contrast scrim.' },
+  ],
+  styleControls: [
+    {
+      key: 'containerWidth',
+      type: 'number',
+      label: 'Container Width',
+      defaultValue: hero02DefaultStyle.containerWidth,
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: hero02DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: hero02DefaultStyle.paddingBottom,
+    },
+    {
+      key: 'imageRadius',
+      type: 'select',
+      label: 'Image Radius',
+      defaultValue: hero02DefaultStyle.imageRadius,
+      options: ['small', 'medium', 'large', 'full'],
+    },
+    {
+      key: 'imageRatio',
+      type: 'select',
+      label: 'Image Ratio',
+      defaultValue: hero02DefaultStyle.imageRatio,
+      options: ['square', 'portrait', 'landscape', 'original'],
+    },
+    {
+      key: 'contentAlignment',
+      type: 'select',
+      label: 'Content Alignment',
+      defaultValue: hero02DefaultStyle.contentAlignment,
+      options: ['left', 'center'],
+    },
+    {
+      key: 'showImageBorder',
+      type: 'boolean',
+      label: 'Show Image Border',
+      defaultValue: hero02DefaultStyle.showImageBorder,
+    },
+    {
+      key: 'contentSurface',
+      type: 'boolean',
+      label: 'Content Surface',
+      defaultValue: hero02DefaultStyle.contentSurface,
+    },
+  ],
+}
+
+export default Hero02Manifest

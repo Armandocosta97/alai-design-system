@@ -1,0 +1,207 @@
+import type { ComponentManifest } from '../../../config/componentManifest'
+import Services01 from './Services01'
+import { services01DefaultProps, services01DefaultStyle } from './Services01'
+
+const iconOptions = ['compass', 'layers', 'tool', 'chart', 'shield', 'spark', 'leaf', 'camera']
+
+const Services01Manifest: ComponentManifest = {
+  id: 'Services01',
+  name: 'Services 01',
+  category: 'services',
+  sourceFolder: 'src/library/services/Services01',
+  description: 'Editorial six-service section with monoline icons, generic across industries.',
+  status: 'ready',
+  version: '1.0.0',
+  tags: ['editorial', 'services', 'premium'],
+  industries: [
+    'agency',
+    'local business',
+    'freelancer',
+    'restaurant',
+    'hotel',
+    'healthcare',
+    'consultant',
+    'artisan',
+    'photographer',
+  ],
+  author: 'ALai Design System',
+  createdAt: '2026-07-05',
+  updatedAt: '2026-07-05',
+  previewImage: '',
+  component: Services01,
+  props: [
+    {
+      key: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow',
+      defaultValue: services01DefaultProps.eyebrow,
+    },
+    {
+      key: 'title',
+      type: 'text',
+      label: 'Title',
+      defaultValue: services01DefaultProps.title,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      defaultValue: services01DefaultProps.subtitle,
+    },
+    {
+      key: 'service1Icon',
+      type: 'select',
+      label: 'Service 1 Icon',
+      defaultValue: services01DefaultProps.service1Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service1Title',
+      type: 'text',
+      label: 'Service 1 Title',
+      defaultValue: services01DefaultProps.service1Title,
+    },
+    {
+      key: 'service1Description',
+      type: 'textarea',
+      label: 'Service 1 Description',
+      defaultValue: services01DefaultProps.service1Description,
+    },
+    {
+      key: 'service2Icon',
+      type: 'select',
+      label: 'Service 2 Icon',
+      defaultValue: services01DefaultProps.service2Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service2Title',
+      type: 'text',
+      label: 'Service 2 Title',
+      defaultValue: services01DefaultProps.service2Title,
+    },
+    {
+      key: 'service2Description',
+      type: 'textarea',
+      label: 'Service 2 Description',
+      defaultValue: services01DefaultProps.service2Description,
+    },
+    {
+      key: 'service3Icon',
+      type: 'select',
+      label: 'Service 3 Icon',
+      defaultValue: services01DefaultProps.service3Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service3Title',
+      type: 'text',
+      label: 'Service 3 Title',
+      defaultValue: services01DefaultProps.service3Title,
+    },
+    {
+      key: 'service3Description',
+      type: 'textarea',
+      label: 'Service 3 Description',
+      defaultValue: services01DefaultProps.service3Description,
+    },
+    {
+      key: 'service4Icon',
+      type: 'select',
+      label: 'Service 4 Icon',
+      defaultValue: services01DefaultProps.service4Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service4Title',
+      type: 'text',
+      label: 'Service 4 Title',
+      defaultValue: services01DefaultProps.service4Title,
+    },
+    {
+      key: 'service4Description',
+      type: 'textarea',
+      label: 'Service 4 Description',
+      defaultValue: services01DefaultProps.service4Description,
+    },
+    {
+      key: 'service5Icon',
+      type: 'select',
+      label: 'Service 5 Icon',
+      defaultValue: services01DefaultProps.service5Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service5Title',
+      type: 'text',
+      label: 'Service 5 Title',
+      defaultValue: services01DefaultProps.service5Title,
+    },
+    {
+      key: 'service5Description',
+      type: 'textarea',
+      label: 'Service 5 Description',
+      defaultValue: services01DefaultProps.service5Description,
+    },
+    {
+      key: 'service6Icon',
+      type: 'select',
+      label: 'Service 6 Icon',
+      defaultValue: services01DefaultProps.service6Icon,
+      options: iconOptions,
+    },
+    {
+      key: 'service6Title',
+      type: 'text',
+      label: 'Service 6 Title',
+      defaultValue: services01DefaultProps.service6Title,
+    },
+    {
+      key: 'service6Description',
+      type: 'textarea',
+      label: 'Service 6 Description',
+      defaultValue: services01DefaultProps.service6Description,
+    },
+  ],
+  exportFiles: ['Services01.tsx', 'Services01.css', 'index.ts'],
+  variants: [
+    { id: 'grid', name: 'Grid', description: 'Six items in a 3-column × 2-row grid.' },
+    { id: 'list', name: 'List', description: 'Six items stacked, icon beside title.' },
+    { id: 'two-column', name: 'Two Column', description: 'Six items in a 2-column × 3-row grid.' },
+  ],
+  styleControls: [
+    {
+      key: 'containerWidth',
+      type: 'number',
+      label: 'Container Width',
+      defaultValue: services01DefaultStyle.containerWidth,
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: services01DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: services01DefaultStyle.paddingBottom,
+    },
+    {
+      key: 'iconStyle',
+      type: 'select',
+      label: 'Icon Style',
+      defaultValue: services01DefaultStyle.iconStyle,
+      options: ['line', 'tinted', 'none'],
+    },
+    {
+      key: 'divider',
+      type: 'boolean',
+      label: 'Divider',
+      defaultValue: services01DefaultStyle.divider,
+    },
+  ],
+}
+
+export default Services01Manifest

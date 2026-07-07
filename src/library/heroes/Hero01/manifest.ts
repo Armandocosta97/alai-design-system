@@ -1,11 +1,12 @@
 import type { ComponentManifest } from '../../../config/componentManifest'
 import Hero01 from './Hero01'
-import { hero01DefaultProps } from './Hero01'
+import { hero01DefaultProps, hero01DefaultStyle } from './Hero01'
 
 const Hero01Manifest: ComponentManifest = {
   id: 'Hero01',
   name: 'Hero 01',
   category: 'heroes',
+  sourceFolder: 'src/library/heroes/Hero01',
   description: 'Large premium hero section with dual call-to-actions and a visual panel.',
   status: 'ready',
   version: '1.0.0',
@@ -64,6 +65,44 @@ const Hero01Manifest: ComponentManifest = {
       type: 'color',
       label: 'Background Color',
       defaultValue: hero01DefaultProps.backgroundColor,
+    },
+    {
+      key: 'heroImageAssetId',
+      type: 'image',
+      label: 'Hero Image',
+      defaultValue: hero01DefaultProps.heroImageAssetId,
+    },
+  ],
+  exportFiles: ['Hero01.tsx', 'Hero01.css', 'index.ts'],
+  variants: [
+    { id: 'split', name: 'Split', description: 'Content and visual panel side by side.' },
+    { id: 'centered', name: 'Centered', description: 'Centered content, visual panel hidden.' },
+  ],
+  styleControls: [
+    {
+      key: 'contentMaxWidth',
+      type: 'number',
+      label: 'Content Max Width',
+      defaultValue: hero01DefaultStyle.contentMaxWidth,
+    },
+    {
+      key: 'textAlign',
+      type: 'select',
+      label: 'Text Align',
+      defaultValue: hero01DefaultStyle.textAlign,
+      options: ['left', 'center', 'right'],
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: hero01DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: hero01DefaultStyle.paddingBottom,
     },
   ],
 }

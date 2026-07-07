@@ -1,0 +1,170 @@
+import type { ComponentManifest } from '../../../config/componentManifest'
+import LogoCloud01 from './LogoCloud01'
+import { logoCloud01DefaultProps, logoCloud01DefaultStyle } from './LogoCloud01'
+
+const LogoCloud01Manifest: ComponentManifest = {
+  id: 'LogoCloud01',
+  name: 'Logo Cloud 01',
+  category: 'logocloud',
+  sourceFolder: 'src/library/logocloud/LogoCloud01',
+  description: 'Understated six-logo trust section, placed directly after the Hero.',
+  status: 'ready',
+  version: '1.0.0',
+  tags: ['editorial', 'trust', 'premium'],
+  industries: [
+    'agency',
+    'saas',
+    'freelancer',
+    'photographer',
+    'hotel',
+    'restaurant',
+    'healthcare',
+    'consultant',
+    'artisan',
+    'local business',
+  ],
+  author: 'ALai Design System',
+  createdAt: '2026-07-07',
+  updatedAt: '2026-07-07',
+  previewImage: '',
+  component: LogoCloud01,
+  props: [
+    {
+      key: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow',
+      defaultValue: logoCloud01DefaultProps.eyebrow,
+    },
+    {
+      key: 'title',
+      type: 'text',
+      label: 'Title',
+      defaultValue: logoCloud01DefaultProps.title,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      defaultValue: logoCloud01DefaultProps.subtitle,
+    },
+    {
+      key: 'logo1AssetId',
+      type: 'image',
+      label: 'Logo 1',
+      defaultValue: logoCloud01DefaultProps.logo1AssetId,
+    },
+    {
+      key: 'logo1CompanyName',
+      type: 'text',
+      label: 'Logo 1 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo1CompanyName,
+    },
+    {
+      key: 'logo2AssetId',
+      type: 'image',
+      label: 'Logo 2',
+      defaultValue: logoCloud01DefaultProps.logo2AssetId,
+    },
+    {
+      key: 'logo2CompanyName',
+      type: 'text',
+      label: 'Logo 2 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo2CompanyName,
+    },
+    {
+      key: 'logo3AssetId',
+      type: 'image',
+      label: 'Logo 3',
+      defaultValue: logoCloud01DefaultProps.logo3AssetId,
+    },
+    {
+      key: 'logo3CompanyName',
+      type: 'text',
+      label: 'Logo 3 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo3CompanyName,
+    },
+    {
+      key: 'logo4AssetId',
+      type: 'image',
+      label: 'Logo 4',
+      defaultValue: logoCloud01DefaultProps.logo4AssetId,
+    },
+    {
+      key: 'logo4CompanyName',
+      type: 'text',
+      label: 'Logo 4 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo4CompanyName,
+    },
+    {
+      key: 'logo5AssetId',
+      type: 'image',
+      label: 'Logo 5',
+      defaultValue: logoCloud01DefaultProps.logo5AssetId,
+    },
+    {
+      key: 'logo5CompanyName',
+      type: 'text',
+      label: 'Logo 5 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo5CompanyName,
+    },
+    {
+      key: 'logo6AssetId',
+      type: 'image',
+      label: 'Logo 6',
+      defaultValue: logoCloud01DefaultProps.logo6AssetId,
+    },
+    {
+      key: 'logo6CompanyName',
+      type: 'text',
+      label: 'Logo 6 Company Name',
+      defaultValue: logoCloud01DefaultProps.logo6CompanyName,
+    },
+  ],
+  exportFiles: ['LogoCloud01.tsx', 'LogoCloud01.css', 'index.ts'],
+  variants: [
+    { id: 'grid', name: 'Grid', description: 'Six logos in a balanced, evenly-gapped grid.' },
+    { id: 'centered-strip', name: 'Centered Strip', description: 'All six logos in a single centered row.' },
+  ],
+  styleControls: [
+    {
+      key: 'containerWidth',
+      type: 'number',
+      label: 'Container Width',
+      defaultValue: logoCloud01DefaultStyle.containerWidth,
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: logoCloud01DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: logoCloud01DefaultStyle.paddingBottom,
+    },
+    {
+      key: 'logoTreatment',
+      type: 'select',
+      label: 'Logo Treatment',
+      defaultValue: logoCloud01DefaultStyle.logoTreatment,
+      options: ['color', 'grayscale'],
+    },
+    {
+      key: 'showCaptions',
+      type: 'boolean',
+      label: 'Show Captions',
+      defaultValue: logoCloud01DefaultStyle.showCaptions,
+    },
+    {
+      key: 'logoSize',
+      type: 'select',
+      label: 'Logo Size',
+      defaultValue: logoCloud01DefaultStyle.logoSize,
+      options: ['small', 'medium', 'large'],
+    },
+  ],
+}
+
+export default LogoCloud01Manifest

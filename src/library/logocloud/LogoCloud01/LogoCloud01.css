@@ -1,0 +1,159 @@
+.logocloud01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.logocloud01__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: 0 1.25rem;
+}
+
+.logocloud01__header {
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logocloud01__eyebrow {
+  margin: 0 0 0.35rem;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.logocloud01__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.logocloud01__subtitle {
+  max-width: 26rem;
+  margin: 0.35rem auto 0;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  font-size: 0.92rem;
+}
+
+.logocloud01__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logocloud01__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.logocloud01__logo {
+  max-width: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+  filter: none;
+  transition:
+    opacity var(--transition-base),
+    filter var(--transition-base);
+}
+
+.logocloud01__item:hover .logocloud01__logo {
+  opacity: 1;
+}
+
+.logocloud01--grayscale .logocloud01__logo {
+  filter: grayscale(1);
+}
+
+.logocloud01--grayscale .logocloud01__item:hover .logocloud01__logo {
+  filter: grayscale(0);
+}
+
+.logocloud01__logo--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 1px dashed color-mix(in srgb, var(--color-text) 18%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+  color: color-mix(in srgb, var(--color-text) 45%, transparent);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.logocloud01__caption {
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  font-size: 0.82rem;
+}
+
+/* Logo size — uniform max-height across all six logos. */
+.logocloud01--small .logocloud01__logo {
+  height: 28px;
+}
+
+.logocloud01--small .logocloud01__logo--placeholder {
+  width: 72px;
+}
+
+.logocloud01--medium .logocloud01__logo {
+  height: 36px;
+}
+
+.logocloud01--medium .logocloud01__logo--placeholder {
+  width: 92px;
+}
+
+.logocloud01--large .logocloud01__logo {
+  height: 48px;
+}
+
+.logocloud01--large .logocloud01__logo--placeholder {
+  width: 112px;
+}
+
+/* Centered Strip — single row, no wrap at desktop width. */
+.logocloud01--centered-strip .logocloud01__grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: var(--space-xl);
+}
+
+.logocloud01--centered-strip .logocloud01__item {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 960px) {
+  .logocloud01--grid .logocloud01__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .logocloud01--centered-strip .logocloud01__grid {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .logocloud01__inner {
+    padding: 0 1rem;
+  }
+
+  .logocloud01--grid .logocloud01__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logocloud01--centered-strip .logocloud01__grid {
+    flex-direction: column;
+  }
+}

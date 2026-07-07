@@ -1,0 +1,237 @@
+.process01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.process01__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: 0 1.25rem;
+}
+
+.process01__header {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.process01__eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.process01__title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.process01__subtitle {
+  max-width: 30rem;
+  margin: var(--space-sm) auto 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.05rem;
+}
+
+.process01__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process01__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.process01__number {
+  margin: 0 0 0.2rem;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: color var(--transition-base), opacity var(--transition-base);
+}
+
+.process01__item:hover .process01__number {
+  color: var(--color-primary);
+}
+
+.process01__step-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.process01__description {
+  margin: 0.2rem 0 0;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  transition: color var(--transition-base), opacity var(--transition-base);
+}
+
+.process01__item:hover .process01__description {
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process01__number,
+  .process01__description {
+    transition: none;
+  }
+}
+
+/* Step number style */
+.process01--number-outline .process01__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--space-sm);
+  border: 1.5px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-radius: 999px;
+  font-size: 1.05rem;
+}
+
+.process01--number-badge .process01__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--space-sm);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  color: var(--color-primary);
+  font-size: 1.05rem;
+}
+
+/* Alignment — applies to Horizontal and Vertical. Editorial already
+   establishes its own emphasis-driven layout, so alignment is a
+   documented no-op there. */
+.process01--align-left .process01__header {
+  margin: 0;
+  text-align: left;
+}
+
+.process01--align-left .process01__subtitle {
+  margin-inline: 0;
+}
+
+.process01--align-left .process01__item {
+  text-align: left;
+}
+
+.process01--align-left.process01--number-outline .process01__number,
+.process01--align-left.process01--number-badge .process01__number {
+  align-self: flex-start;
+}
+
+/* Divider */
+.process01--divider.process01--horizontal .process01__item:not(:first-child) {
+  border-left: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-left: var(--space-lg);
+}
+
+.process01--divider.process01--vertical .process01__item:not(:first-child) {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+/* Vertical Steps — single column. */
+.process01--vertical .process01__grid {
+  grid-template-columns: 1fr;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+/* Editorial — first step large, the other three follow beneath. */
+.process01--editorial .process01__grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.process01--editorial .process01__item:first-child {
+  flex: 1 1 100%;
+  max-width: 34rem;
+  margin: 0 auto var(--space-lg);
+}
+
+.process01--editorial .process01__item:first-child .process01__step-title {
+  font-size: 1.5rem;
+}
+
+.process01--editorial .process01__item:first-child .process01__description {
+  font-size: 1.02rem;
+}
+
+.process01--editorial .process01__item:nth-child(n + 2) {
+  flex: 1 1 200px;
+}
+
+.process01--divider.process01--editorial .process01__item:nth-child(n + 2) {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+@media (max-width: 960px) {
+  .process01--horizontal .process01__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process01--divider.process01--horizontal .process01__item {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .process01--divider.process01--horizontal .process01__item:nth-child(2n) {
+    border-left: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-left: var(--space-lg);
+  }
+
+  .process01--divider.process01--horizontal .process01__item:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-top: var(--space-lg);
+  }
+}
+
+@media (max-width: 640px) {
+  .process01__inner {
+    padding: 0 1rem;
+  }
+
+  .process01--horizontal .process01__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process01--divider.process01--horizontal .process01__item {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .process01--divider.process01--horizontal .process01__item:not(:first-child) {
+    border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-top: var(--space-lg);
+  }
+
+  .process01--editorial .process01__item:nth-child(n + 2) {
+    flex: 1 1 100%;
+  }
+}

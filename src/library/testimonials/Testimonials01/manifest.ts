@@ -1,0 +1,191 @@
+import type { ComponentManifest } from '../../../config/componentManifest'
+import Testimonials01 from './Testimonials01'
+import { testimonials01DefaultProps, testimonials01DefaultStyle } from './Testimonials01'
+
+const Testimonials01Manifest: ComponentManifest = {
+  id: 'Testimonials01',
+  name: 'Testimonials 01',
+  category: 'testimonials',
+  sourceFolder: 'src/library/testimonials/Testimonials01',
+  description: 'Editorial three-testimonial section with quote, avatar, and attribution.',
+  status: 'ready',
+  version: '1.0.0',
+  tags: ['editorial', 'quote', 'premium'],
+  industries: ['saas', 'product', 'professional'],
+  author: 'ALai Design System',
+  createdAt: '2026-07-05',
+  updatedAt: '2026-07-05',
+  previewImage: '',
+  component: Testimonials01,
+  props: [
+    {
+      key: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow',
+      defaultValue: testimonials01DefaultProps.eyebrow,
+    },
+    {
+      key: 'title',
+      type: 'text',
+      label: 'Title',
+      defaultValue: testimonials01DefaultProps.title,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      defaultValue: testimonials01DefaultProps.subtitle,
+    },
+    {
+      key: 'testimonial1AvatarAssetId',
+      type: 'image',
+      label: 'Testimonial 1 Avatar',
+      defaultValue: testimonials01DefaultProps.testimonial1AvatarAssetId,
+    },
+    {
+      key: 'testimonial1Name',
+      type: 'text',
+      label: 'Testimonial 1 Name',
+      defaultValue: testimonials01DefaultProps.testimonial1Name,
+    },
+    {
+      key: 'testimonial1Role',
+      type: 'text',
+      label: 'Testimonial 1 Role',
+      defaultValue: testimonials01DefaultProps.testimonial1Role,
+    },
+    {
+      key: 'testimonial1Company',
+      type: 'text',
+      label: 'Testimonial 1 Company',
+      defaultValue: testimonials01DefaultProps.testimonial1Company,
+    },
+    {
+      key: 'testimonial1Text',
+      type: 'textarea',
+      label: 'Testimonial 1 Text',
+      defaultValue: testimonials01DefaultProps.testimonial1Text,
+    },
+    {
+      key: 'testimonial2AvatarAssetId',
+      type: 'image',
+      label: 'Testimonial 2 Avatar',
+      defaultValue: testimonials01DefaultProps.testimonial2AvatarAssetId,
+    },
+    {
+      key: 'testimonial2Name',
+      type: 'text',
+      label: 'Testimonial 2 Name',
+      defaultValue: testimonials01DefaultProps.testimonial2Name,
+    },
+    {
+      key: 'testimonial2Role',
+      type: 'text',
+      label: 'Testimonial 2 Role',
+      defaultValue: testimonials01DefaultProps.testimonial2Role,
+    },
+    {
+      key: 'testimonial2Company',
+      type: 'text',
+      label: 'Testimonial 2 Company',
+      defaultValue: testimonials01DefaultProps.testimonial2Company,
+    },
+    {
+      key: 'testimonial2Text',
+      type: 'textarea',
+      label: 'Testimonial 2 Text',
+      defaultValue: testimonials01DefaultProps.testimonial2Text,
+    },
+    {
+      key: 'testimonial3AvatarAssetId',
+      type: 'image',
+      label: 'Testimonial 3 Avatar',
+      defaultValue: testimonials01DefaultProps.testimonial3AvatarAssetId,
+    },
+    {
+      key: 'testimonial3Name',
+      type: 'text',
+      label: 'Testimonial 3 Name',
+      defaultValue: testimonials01DefaultProps.testimonial3Name,
+    },
+    {
+      key: 'testimonial3Role',
+      type: 'text',
+      label: 'Testimonial 3 Role',
+      defaultValue: testimonials01DefaultProps.testimonial3Role,
+    },
+    {
+      key: 'testimonial3Company',
+      type: 'text',
+      label: 'Testimonial 3 Company',
+      defaultValue: testimonials01DefaultProps.testimonial3Company,
+    },
+    {
+      key: 'testimonial3Text',
+      type: 'textarea',
+      label: 'Testimonial 3 Text',
+      defaultValue: testimonials01DefaultProps.testimonial3Text,
+    },
+  ],
+  exportFiles: ['Testimonials01.tsx', 'Testimonials01.css', 'index.ts'],
+  variants: [
+    { id: 'row', name: 'Row', description: 'Three testimonials side by side.' },
+    { id: 'stacked', name: 'Stacked', description: 'Single column, full-width items.' },
+    { id: 'featured', name: 'Featured', description: 'First testimonial large, other two smaller below.' },
+  ],
+  styleControls: [
+    {
+      key: 'containerWidth',
+      type: 'number',
+      label: 'Container Width',
+      defaultValue: testimonials01DefaultStyle.containerWidth,
+    },
+    {
+      key: 'paddingTop',
+      type: 'number',
+      label: 'Padding Top',
+      defaultValue: testimonials01DefaultStyle.paddingTop,
+    },
+    {
+      key: 'paddingBottom',
+      type: 'number',
+      label: 'Padding Bottom',
+      defaultValue: testimonials01DefaultStyle.paddingBottom,
+    },
+    {
+      key: 'density',
+      type: 'select',
+      label: 'Density',
+      defaultValue: testimonials01DefaultStyle.density,
+      options: ['compact', 'comfortable'],
+    },
+    {
+      key: 'avatarSize',
+      type: 'number',
+      label: 'Avatar Size',
+      defaultValue: testimonials01DefaultStyle.avatarSize,
+    },
+    {
+      key: 'alignment',
+      type: 'select',
+      label: 'Alignment',
+      defaultValue: testimonials01DefaultStyle.alignment,
+      options: ['left', 'center'],
+    },
+    {
+      key: 'dividerStyle',
+      type: 'select',
+      label: 'Divider Style',
+      defaultValue: testimonials01DefaultStyle.dividerStyle,
+      options: ['none', 'line'],
+    },
+    {
+      key: 'showQuoteMark',
+      type: 'boolean',
+      label: 'Show Quote Mark',
+      defaultValue: testimonials01DefaultStyle.showQuoteMark,
+    },
+  ],
+}
+
+export default Testimonials01Manifest

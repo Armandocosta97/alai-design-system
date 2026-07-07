@@ -1,14 +1,15 @@
 .hero01 {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
-  gap: 2rem;
+  gap: var(--space-xl);
   align-items: center;
   padding: clamp(2rem, 5vw, 4rem);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 2rem;
-  background: var(--hero01-background, #fff6f0);
-  color: #111111;
-  box-shadow: 0 24px 60px rgba(17, 17, 17, 0.08);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius);
+  background: var(--hero01-background, var(--color-background));
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  font-family: var(--font-family);
 }
 
 .hero01__content {
@@ -17,7 +18,7 @@
 
 .hero01__eyebrow {
   margin: 0 0 1rem;
-  color: #ff6a1a;
+  color: var(--color-primary);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -34,7 +35,7 @@
 .hero01__subtitle {
   max-width: 34rem;
   margin: 1.4rem 0 0;
-  color: rgba(17, 17, 17, 0.68);
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
   font-size: 1.05rem;
 }
 
@@ -56,14 +57,14 @@
 }
 
 .hero01__cta--primary {
-  background: #111111;
-  color: #ffffff;
+  background: var(--color-secondary);
+  color: var(--color-surface);
 }
 
 .hero01__cta--secondary {
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  background: rgba(255, 255, 255, 0.72);
-  color: #111111;
+  border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  color: var(--color-text);
 }
 
 .hero01__visual {
@@ -73,20 +74,20 @@
 
 .hero01__visual-panel {
   width: 100%;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 1.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius);
   padding: 1.25rem;
   background:
-    radial-gradient(circle at top right, rgba(255, 106, 26, 0.16), transparent 28%),
-    rgba(255, 255, 255, 0.86);
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 28%),
+    color-mix(in srgb, var(--color-surface) 86%, transparent);
 }
 
 .hero01__visual-badge {
   display: inline-flex;
   border-radius: 999px;
   padding: 0.45rem 0.75rem;
-  background: rgba(17, 17, 17, 0.06);
-  color: rgba(17, 17, 17, 0.58);
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+  color: color-mix(in srgb, var(--color-text) 58%, transparent);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -102,17 +103,49 @@
 .hero01__visual-card {
   min-height: 7rem;
   border-radius: 1.2rem;
-  background: rgba(17, 17, 17, 0.06);
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
 }
 
 .hero01__visual-card--accent {
-  background: rgba(255, 106, 26, 0.18);
+  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 .hero01__visual-card--wide {
   grid-column: 1 / -1;
   min-height: 9rem;
-  background: rgba(17, 17, 17, 0.08);
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+
+.hero01__visual-image-wrap {
+  overflow: hidden;
+  margin-top: 1.25rem;
+  border-radius: 1.25rem;
+}
+
+.hero01__visual-image {
+  display: block;
+  width: 100%;
+  min-height: 20rem;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
+.hero01--centered {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+.hero01--centered .hero01__content {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.hero01--centered .hero01__actions {
+  justify-content: center;
+}
+
+.hero01--centered .hero01__visual {
+  display: none;
 }
 
 @media (max-width: 960px) {

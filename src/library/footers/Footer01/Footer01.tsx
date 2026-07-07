@@ -2,6 +2,13 @@ import type { CSSProperties } from 'react'
 import type { ProjectTheme } from '../../../config/theme'
 import './Footer01.css'
 
+export type Footer01Variant = 'classic' | 'minimal'
+
+export type Footer01Style = {
+  padding?: number
+  borderTop?: boolean
+}
+
 export type Footer01Props = {
   logoText: string
   description: string
@@ -10,6 +17,8 @@ export type Footer01Props = {
   copyrightText: string
   backgroundColor: string
   theme?: ProjectTheme
+  variantId?: string
+  style?: Footer01Style
 }
 
 export const footer01DefaultProps: Footer01Props = {
@@ -20,6 +29,17 @@ export const footer01DefaultProps: Footer01Props = {
   phone: '+1 (555) 014-2211',
   copyrightText: '© 2026 ALai Design System. All rights reserved.',
   backgroundColor: '#ffffff',
+}
+
+export const footer01DefaultStyle: Required<Footer01Style> = {
+  padding: 32,
+  borderTop: true,
+}
+
+const footer01Variants: Footer01Variant[] = ['classic', 'minimal']
+
+function resolveFooter01Variant(variantId?: string): Footer01Variant {
+  return footer01Variants.find((variant) => variant === variantId) ?? 'classic'
 }
 
 const defaultLinks = [
@@ -37,12 +57,20 @@ function Footer01({
   copyrightText = footer01DefaultProps.copyrightText,
   backgroundColor = footer01DefaultProps.backgroundColor,
   theme: _theme,
+  variantId,
+  style,
 }: Footer01Props) {
+  const variant = resolveFooter01Variant(variantId)
+  const resolvedStyle = { ...footer01DefaultStyle, ...style }
+
+  const rootStyle: CSSProperties = {
+    ...((backgroundColor ? { '--footer01-background': backgroundColor } : {}) as CSSProperties),
+    padding: resolvedStyle.padding,
+    borderTop: resolvedStyle.borderTop ? undefined : 'none',
+  }
+
   return (
-    <footer
-      className="footer01"
-      style={{ '--footer01-background': backgroundColor } as CSSProperties}
-    >
+    <footer className={`footer01 footer01--${variant}`} style={rootStyle}>
       <div className="footer01__top">
         <div className="footer01__brand">
           <span className="footer01__logo-mark">A</span>

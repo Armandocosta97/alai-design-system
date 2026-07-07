@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import type { ComponentManifest } from '../config/componentManifest'
+import ComponentThumbnail from './ComponentThumbnail'
 import StatusBadge from './StatusBadge'
 import Tag from './Tag'
 
@@ -9,6 +11,8 @@ type ComponentCardProps = {
 function ComponentCard({ item }: ComponentCardProps) {
   return (
     <article className="component-card">
+      <ComponentThumbnail manifest={item} />
+
       <div className="component-card__header">
         <div>
           <p className="component-card__eyebrow">
@@ -29,6 +33,10 @@ function ComponentCard({ item }: ComponentCardProps) {
           <Tag key={industry} label={industry} />
         ))}
       </div>
+
+      <Link className="builder-panel__button" to={`/playground/${item.id}`}>
+        Open Playground
+      </Link>
     </article>
   )
 }

@@ -1,0 +1,241 @@
+.contact01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.contact01__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: 0 1.25rem;
+}
+
+.contact01__header {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact01__eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact01__title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.contact01__subtitle {
+  max-width: 30rem;
+  margin: var(--space-sm) auto 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.05rem;
+}
+
+.contact01__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.contact01__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 26rem;
+  margin: 0;
+  font-style: normal;
+  text-align: center;
+}
+
+.contact01__business-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.contact01__detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.contact01__detail-label {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact01__detail-value {
+  margin: 0;
+  font-size: 1.05rem;
+  white-space: pre-line;
+}
+
+.contact01__detail-link {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-base);
+}
+
+.contact01__detail-link:hover {
+  border-color: currentColor;
+}
+
+.contact01__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.contact01__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.85rem 1.4rem;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.contact01__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.contact01__directions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent);
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--transition-base);
+}
+
+.contact01__directions:hover {
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+}
+
+/* Alignment — applies to Centered and Information Card. Split fixes its own
+   left-header/right-details layout, so alignment is a documented no-op there. */
+.contact01--align-left .contact01__content {
+  align-items: flex-start;
+}
+
+.contact01--align-left .contact01__details {
+  text-align: left;
+}
+
+.contact01--align-left .contact01__detail {
+  align-items: flex-start;
+}
+
+/* Divider — hairline rule between detail rows (business name excluded). */
+.contact01--divider-line .contact01__detail ~ .contact01__detail {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-md);
+}
+
+/* Optional background surface — independent of variant. */
+.contact01--surface .contact01__details {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+/* Information Card — details inset into a bordered/surfaced panel. */
+.contact01--information-card .contact01__details {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+/* Split — header left, details right. */
+.contact01--split .contact01__inner {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-xl);
+}
+
+.contact01--split .contact01__header {
+  flex: 1;
+  max-width: 22rem;
+  margin: 0;
+  text-align: left;
+}
+
+.contact01--split .contact01__content {
+  flex: 1;
+  align-items: flex-start;
+}
+
+.contact01--split .contact01__details {
+  text-align: left;
+  max-width: 28rem;
+}
+
+.contact01--split .contact01__detail {
+  align-items: flex-start;
+}
+
+@media (max-width: 720px) {
+  .contact01--split .contact01__inner {
+    flex-direction: column;
+  }
+
+  .contact01--split .contact01__header {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact01__inner {
+    padding: 0 1rem;
+  }
+
+  .contact01--surface .contact01__details,
+  .contact01--information-card .contact01__details {
+    padding: var(--space-lg);
+  }
+
+  .contact01__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .contact01__cta,
+  .contact01__directions {
+    width: 100%;
+  }
+}
