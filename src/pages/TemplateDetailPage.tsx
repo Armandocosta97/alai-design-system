@@ -103,6 +103,9 @@ function TemplateDetailPage() {
             >
               Use Template
             </button>
+            <Link className="builder-panel__button" to={`/templates/${template.id}/preview`}>
+              Preview Full Site
+            </Link>
           </div>
 
           <div className="template-detail-page__sections">

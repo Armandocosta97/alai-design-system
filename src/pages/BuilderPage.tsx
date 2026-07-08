@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useProject } from '../app/ProjectContext'
 import BuilderCanvas from '../components/BuilderCanvas'
 import BuilderInspector from '../components/BuilderInspector'
@@ -414,6 +415,12 @@ function BuilderPage() {
             >
               Redo
             </button>
+          </div>
+
+          <div className="builder-toolbar__group">
+            <Link className="builder-toolbar__button" to="/preview">
+              Preview
+            </Link>
           </div>
         </div>
       </div>

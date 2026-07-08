@@ -15,6 +15,10 @@ no runtime dependency on ALai Studio itself.
   a detail page per template at `/templates/:id`.
 - **Builder** (`/builder`) — compose pages from library components, edit
   props/style/variants, and export the current project as a ZIP.
+- **Preview Mode** (`/preview`, `/templates/:id/preview`) — an interactive,
+  read-only, in-app rendering of a project or template — a clean simulated
+  website with working links, FAQ accordions, and Form01 behavior, not a
+  static screenshot and not the ZIP export.
 - **Playground** (`/playground/:componentId`) — isolated, local-only preview
   of a single component with live prop/style/variant editing.
 - **Export Engine** (`src/export/`) — turns a `Project` into a set of
@@ -25,6 +29,9 @@ no runtime dependency on ALai Studio itself.
 
 - [`docs/templates.md`](docs/templates.md) — what a template is, the rules
   that keep template metadata out of exports, and immutability guarantees.
+- [`docs/preview.md`](docs/preview.md) — what Preview Mode is, how it
+  differs from Builder and Export, the two preview routes, and how viewport
+  simulation works.
 - [`docs/assets.md`](docs/assets.md) — the current asset strategy: why
   templates are asset-free today, and what would have to be true before that
   changes.
@@ -73,7 +80,14 @@ See [`docs/templates.md`](docs/templates.md) and
 [`docs/export-verification.md`](docs/export-verification.md) for the current
 stable baseline: 4 production templates, `Pricing01` and `Form01`, static
 template thumbnails, per-template detail pages, the export theme background
-fix, and runtime broken-image verification in `verify:templates`.
+fix, and runtime broken-image verification in `verify:templates`. See
+[`docs/releases/v0.1.md`](docs/releases/v0.1.md) for the full v0.1 release
+notes.
+
+## Since v0.1 (unreleased)
+
+- **Preview Mode** — see [`docs/preview.md`](docs/preview.md) and
+  [`docs/releases/unreleased.md`](docs/releases/unreleased.md).
 
 ## Known non-blocking warnings / backlog
 

@@ -33,7 +33,9 @@ sections each:
 None of the four use `Contact01` — `Form01` covers the inquiry/contact role
 everywhere it's used. Each has a static thumbnail (`public/template-thumbnails/*.png`)
 and is browsable at `/templates` (grid) and `/templates/:id` (detail page,
-with a "Use Template" CTA and a "Preview"/"Back to Templates" pair).
+with a "Use Template" CTA, a "Preview Full Site" link to an interactive
+read-only preview at `/templates/:id/preview` — see
+[`preview.md`](preview.md) — and a "Back to Templates" link).
 
 ## Loading a template
 

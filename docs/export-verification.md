@@ -14,6 +14,14 @@ and a real browser runtime `npm run build` never executes.
 that gap by actually driving the Builder, exporting each template, and
 building + running the result.
 
+This is a different guarantee from [Preview Mode](preview.md)
+(`/preview`, `/templates/:id/preview`): Preview proves a project *renders
+and behaves* inside ALai Studio; it never runs `npm install`/`npm run build`
+and doesn't prove the exported code compiles standalone. Only
+`verify:templates` proves that. The two are complementary — use Preview to
+look at a project quickly, use `verify:templates` to prove it actually
+exports and runs correctly.
+
 ## What it checks, per template
 
 For each of Agency, Restaurant, SaaS, Portfolio, in order:

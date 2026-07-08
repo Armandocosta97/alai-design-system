@@ -23,12 +23,14 @@ import ImportProjectPage from '../pages/ImportProjectPage'
 import LogoCloudPage from '../pages/LogoCloudPage'
 import NavigationPage from '../pages/NavigationPage'
 import PlaygroundPage from '../pages/PlaygroundPage'
+import PreviewPage from '../pages/PreviewPage'
 import PricingPage from '../pages/PricingPage'
 import ProcessPage from '../pages/ProcessPage'
 import ServicesPage from '../pages/ServicesPage'
 import StatsPage from '../pages/StatsPage'
 import TeamPage from '../pages/TeamPage'
 import TemplateDetailPage from '../pages/TemplateDetailPage'
+import TemplatePreviewPage from '../pages/TemplatePreviewPage'
 import TemplatesPage from '../pages/TemplatesPage'
 import TestimonialsPage from '../pages/TestimonialsPage'
 import TypographyPage from '../pages/TypographyPage'
@@ -80,7 +82,9 @@ export const router = createBrowserRouter([
         }
       }),
       { path: 'playground/:componentId', element: <PlaygroundPage /> },
+      { path: 'preview', element: <PreviewPage /> },
       { path: 'templates/:templateId', element: <TemplateDetailPage /> },
+      { path: 'templates/:templateId/preview', element: <TemplatePreviewPage /> },
     ],
   },
 ])
