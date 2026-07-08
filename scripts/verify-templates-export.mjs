@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Verifies all four ALai templates end to end: load -> Builder -> export ZIP
 // -> extract -> check component folders -> check for template-metadata
-// leakage -> npm install -> npm run build inside the exported project.
+// leakage -> npm install -> npm run build -> serve the built project and
+// check for runtime console errors / broken images.
 //
 // This exists because a template's `style`/`props` data is only loosely
 // typed at authoring time (Record<string, unknown>) — an invalid value
@@ -10,6 +11,16 @@
 // *exported* project's strictly-typed component props are checked by
 // `tsc`. Run this after editing any template so that class of bug is
 // caught locally instead of by whoever tries the export next.
+//
+// The runtime image check exists because `npm run build` only proves the
+// exported project *compiles* — a template could reference a broken image
+// path (e.g. a public-relative URL with no `public/` folder to resolve
+// against in a standalone export) and still build successfully, only
+// 404ing once a real visitor loads the page. See the Demo Asset Strategy
+// Audit for the full analysis of why this gap exists. Current templates
+// never reference an image asset id, so components always fall back to an
+// inline SVG placeholder (never an `<img>` tag) — this check is here to
+// hold that guarantee for whenever real demo assets are added later.
 //
 // Usage:
 //   npm run verify:templates
@@ -154,6 +165,96 @@ function runCommand(cmd, cmdArgs, cwd) {
   return { ok: res.status === 0, output }
 }
 
+/**
+ * Serves an exported project's already-built `dist/` via `vite preview`,
+ * same "spawn, parse the real port, poll until reachable" pattern as
+ * ensureDevServer — `vite preview` also shifts port if the default is busy.
+ */
+async function startPreviewServer(cwd) {
+  const proc = spawn('npx', ['vite', 'preview'], { cwd, stdio: ['ignore', 'pipe', 'pipe'] })
+
+  let resolvedUrl = null
+  let stderr = ''
+  proc.stdout.on('data', (chunk) => {
+    const match = chunk.toString().match(/Local:\s+(http:\/\/localhost:\d+)\//)
+    if (match) resolvedUrl = match[1]
+  })
+  proc.stderr.on('data', (chunk) => {
+    stderr += chunk.toString()
+  })
+
+  for (let i = 0; i < 30 && !resolvedUrl; i++) {
+    await sleep(500)
+  }
+  if (!resolvedUrl) {
+    proc.kill()
+    throw new Error(`Preview server did not print a Local: URL within 15s.${stderr ? `\n${stderr}` : ''}`)
+  }
+
+  for (let i = 0; i < 20; i++) {
+    if (await isServerUp(resolvedUrl)) {
+      return { proc, url: resolvedUrl }
+    }
+    await sleep(500)
+  }
+
+  proc.kill()
+  throw new Error(`Preview server printed ${resolvedUrl} but never became reachable.`)
+}
+
+function stopPreviewServer(proc) {
+  if (proc && !proc.killed) {
+    proc.kill()
+  }
+}
+
+/**
+ * Loads the exported project's built site and checks for the two classes of
+ * runtime-only failure `npm run build` can't catch: console/page errors, and
+ * broken images. An `<img>` only ever appears in these components when a
+ * real asset resolved (see Hero02/Gallery01/etc.) — unresolved image props
+ * fall back to an inline SVG placeholder, never an `<img>` tag — so this
+ * never needs to special-case "intentional" placeholders; any `<img>` found
+ * is expected to have actually loaded.
+ */
+async function checkRuntimeImages(browser, url) {
+  const context = await browser.newContext()
+  const page = await context.newPage()
+
+  const consoleErrors = []
+  const failedRequests = []
+
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text())
+  })
+  page.on('pageerror', (err) => {
+    consoleErrors.push(err instanceof Error ? err.message : String(err))
+  })
+  page.on('requestfailed', (request) => {
+    if (request.resourceType() === 'image') {
+      failedRequests.push(`${request.url()} (${request.failure()?.errorText ?? 'failed'})`)
+    }
+  })
+  page.on('response', (response) => {
+    if (response.request().resourceType() === 'image' && !response.ok()) {
+      failedRequests.push(`${response.url()} (HTTP ${response.status()})`)
+    }
+  })
+
+  await page.goto(url, { waitUntil: 'networkidle' })
+  await page.waitForTimeout(300)
+
+  const brokenImages = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('img'))
+      .filter((img) => !img.complete || img.naturalWidth === 0 || img.naturalHeight === 0)
+      .map((img) => img.currentSrc || img.src)
+  })
+
+  await context.close()
+
+  return { consoleErrors, failedRequests, brokenImages }
+}
+
 function walkFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (entry.name === 'node_modules' || entry.name === 'dist') continue
@@ -205,7 +306,7 @@ async function gotoTemplatesPage(page, baseUrl, attempts = 3) {
   throw lastErr
 }
 
-async function verifyTemplate(page, baseUrl, template) {
+async function verifyTemplate(browser, page, baseUrl, template) {
   const result = { name: template.name, ok: true, steps: [] }
 
   function step(label, ok, detail) {
@@ -258,7 +359,31 @@ async function verifyTemplate(page, baseUrl, template) {
     if (!step('npm install', install.ok, install.ok ? undefined : install.output.slice(-800))) return result
 
     const build = runCommand('npm', ['run', 'build'], extractDir)
-    step('npm run build', build.ok, build.ok ? undefined : build.output.slice(-1500))
+    if (!step('npm run build', build.ok, build.ok ? undefined : build.output.slice(-1500))) return result
+
+    let previewServer
+    try {
+      previewServer = await startPreviewServer(extractDir)
+      const runtime = await checkRuntimeImages(browser, previewServer.url)
+
+      step(
+        'exported page loads with zero console errors',
+        runtime.consoleErrors.length === 0,
+        runtime.consoleErrors.length ? runtime.consoleErrors.join('; ') : undefined,
+      )
+      step(
+        'no failed image network requests',
+        runtime.failedRequests.length === 0,
+        runtime.failedRequests.length ? runtime.failedRequests.join('; ') : undefined,
+      )
+      step(
+        'no broken <img> elements',
+        runtime.brokenImages.length === 0,
+        runtime.brokenImages.length ? runtime.brokenImages.join('; ') : undefined,
+      )
+    } finally {
+      stopPreviewServer(previewServer?.proc)
+    }
   } catch (err) {
     step('unexpected error', false, err instanceof Error ? err.message : String(err))
   }
@@ -299,7 +424,7 @@ async function main() {
     const results = []
     for (const template of TEMPLATES) {
       console.log(`\n▶ Verifying ${template.name}...`)
-      const result = await verifyTemplate(page, devServer.url, template)
+      const result = await verifyTemplate(browser, page, devServer.url, template)
       results.push(result)
       printResult(result)
     }
