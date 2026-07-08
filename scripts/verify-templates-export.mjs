@@ -42,28 +42,28 @@ const TEMPLATES = [
   {
     name: 'Agency',
     expectedComponents: [
-      'CTA01', 'Contact01', 'FAQ01', 'Features01', 'Footer01', 'Header01',
-      'Hero02', 'LogoCloud01', 'Process01', 'Services01', 'Stats01', 'Testimonials01',
+      'CTA01', 'FAQ01', 'Features01', 'Footer01', 'Form01', 'Header01',
+      'Hero02', 'LogoCloud01', 'Pricing01', 'Process01', 'Services01', 'Stats01', 'Testimonials01',
     ],
   },
   {
     name: 'Restaurant',
     expectedComponents: [
-      'CTA01', 'Contact01', 'FAQ01', 'Features01', 'Footer01', 'Gallery01',
+      'CTA01', 'FAQ01', 'Features01', 'Footer01', 'Form01', 'Gallery01',
       'Header01', 'Hero02', 'Services01', 'Stats01', 'Testimonials01',
     ],
   },
   {
     name: 'SaaS',
     expectedComponents: [
-      'CTA01', 'Contact01', 'FAQ01', 'Features01', 'Footer01', 'Header01',
-      'Hero02', 'LogoCloud01', 'Process01', 'Services01', 'Stats01', 'Testimonials01',
+      'CTA01', 'FAQ01', 'Features01', 'Footer01', 'Form01', 'Header01',
+      'Hero02', 'LogoCloud01', 'Pricing01', 'Process01', 'Services01', 'Stats01', 'Testimonials01',
     ],
   },
   {
     name: 'Portfolio',
     expectedComponents: [
-      'CTA01', 'Contact01', 'FAQ01', 'Features01', 'Footer01', 'Gallery01',
+      'CTA01', 'FAQ01', 'Features01', 'Footer01', 'Form01', 'Gallery01',
       'Header01', 'Hero02', 'Process01', 'Services01', 'Testimonials01',
     ],
   },

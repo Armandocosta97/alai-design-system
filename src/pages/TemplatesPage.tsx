@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useProject } from '../app/ProjectContext'
 import { templates, type Template } from '../config/templates'
 import { loadTemplate } from '../utils/loadTemplate'
@@ -66,13 +66,18 @@ function TemplatesPage() {
                 </li>
               ))}
             </ul>
-            <button
-              className="builder-panel__button"
-              type="button"
-              onClick={() => handleUseTemplate(template)}
-            >
-              Use Template
-            </button>
+            <div className="template-card__actions">
+              <Link className="builder-panel__button" to={`/templates/${template.id}`}>
+                Preview
+              </Link>
+              <button
+                className="builder-panel__button builder-panel__button--primary"
+                type="button"
+                onClick={() => handleUseTemplate(template)}
+              >
+                Use Template
+              </button>
+            </div>
           </article>
         ))}
       </div>

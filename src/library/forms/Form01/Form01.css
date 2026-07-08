@@ -1,0 +1,304 @@
+.form01 {
+  width: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+.form01__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: 0 1.25rem;
+}
+
+.form01__header {
+  max-width: 36rem;
+}
+
+.form01--align-center .form01__header {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form01--align-left .form01__header {
+  margin: 0;
+  text-align: left;
+}
+
+.form01__eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form01__title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.form01__subtitle {
+  max-width: 30rem;
+  margin: var(--space-sm) 0 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 1.05rem;
+}
+
+.form01--align-center .form01__subtitle {
+  margin-inline: auto;
+}
+
+.form01__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.form01__form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form01--surface .form01__form-panel {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+.form01__form-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.form01__form-description {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.form01__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form01__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form01__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.form01__input,
+.form01__textarea {
+  width: 100%;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  box-sizing: border-box;
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.form01__textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+/* Field style — outline (default), filled, underline. */
+.form01--field-outline .form01__input,
+.form01--field-outline .form01__textarea {
+  border: 1px solid color-mix(in srgb, var(--color-text) 18%, transparent);
+}
+
+.form01--field-outline .form01__input:focus,
+.form01--field-outline .form01__textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.form01--field-filled .form01__input,
+.form01--field-filled .form01__textarea {
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
+.form01--field-filled .form01__input:focus,
+.form01--field-filled .form01__textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.form01--field-underline .form01__input,
+.form01--field-underline .form01__textarea {
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 24%, transparent);
+  border-radius: 0;
+  padding-inline: 0;
+}
+
+.form01--field-underline .form01__input:focus,
+.form01--field-underline .form01__textarea:focus {
+  border-bottom-color: var(--color-primary);
+  outline: none;
+}
+
+.form01__submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-xs);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-base);
+}
+
+.form01__submit:hover {
+  transform: translateY(-1px);
+}
+
+.form01__note {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.form01__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form01__side-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.form01__side-description {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.form01__side-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form01__side-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.form01__side-detail-label {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.form01__side-detail-value {
+  margin: 0;
+  font-size: 0.95rem;
+  white-space: pre-line;
+}
+
+.form01__side-detail-link {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-base);
+}
+
+.form01__side-detail-link:hover {
+  border-color: currentColor;
+}
+
+/* Card — form (and side panel, if shown) inset into a bordered/surfaced
+   single card, stacked in one column regardless of the surface control. */
+.form01--card .form01__content {
+  grid-template-columns: 1fr;
+}
+
+.form01--card .form01__form-panel {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+.form01--card .form01__side {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+/* Stacked — single column, form above side panel. */
+.form01--stacked .form01__content {
+  grid-template-columns: 1fr;
+}
+
+.form01--stacked .form01__side {
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding-top: var(--space-lg);
+}
+
+@media (max-width: 860px) {
+  .form01__content {
+    grid-template-columns: 1fr;
+  }
+
+  .form01--split .form01__side {
+    border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    padding-top: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .form01__inner {
+    padding: 0 1rem;
+  }
+
+  .form01--surface .form01__form-panel,
+  .form01--card .form01__form-panel {
+    padding: var(--space-lg);
+  }
+
+  .form01__submit {
+    align-self: stretch;
+  }
+}

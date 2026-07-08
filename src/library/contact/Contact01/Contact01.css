@@ -106,6 +106,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   border-radius: 999px;
   padding: 0.85rem 1.4rem;
   background: var(--color-primary);
@@ -127,6 +128,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   border-radius: 999px;
   padding: 0.85rem 1.4rem;
   border: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent);

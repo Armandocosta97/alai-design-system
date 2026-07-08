@@ -4,11 +4,13 @@ import CTA01Manifest from '../library/cta/CTA01/manifest'
 import FAQ01Manifest from '../library/faq/FAQ01/manifest'
 import Features01Manifest from '../library/features/Features01/manifest'
 import Footer01Manifest from '../library/footers/Footer01/manifest'
+import Form01Manifest from '../library/forms/Form01/manifest'
 import Gallery01Manifest from '../library/gallery/Gallery01/manifest'
 import Header01Manifest from '../library/headers/Header01/manifest'
 import Hero01Manifest from '../library/heroes/Hero01/manifest'
 import Hero02Manifest from '../library/heroes/Hero02/manifest'
 import LogoCloud01Manifest from '../library/logocloud/LogoCloud01/manifest'
+import Pricing01Manifest from '../library/pricing/Pricing01/manifest'
 import Process01Manifest from '../library/process/Process01/manifest'
 import Services01Manifest from '../library/services/Services01/manifest'
 import Stats01Manifest from '../library/stats/Stats01/manifest'
@@ -46,6 +48,8 @@ export const coreLibrary: ComponentLibrary = {
     Services01Manifest,
     Contact01Manifest,
     FAQ01Manifest,
+    Pricing01Manifest,
+    Form01Manifest,
   ],
 }
 
